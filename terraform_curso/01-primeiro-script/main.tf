@@ -12,4 +12,5 @@ resource "aws_s3_bucket" "bucket" {
         Name        = "My bucket test"
         Environment = "Dev"
     }
+    
 }
