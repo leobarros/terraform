@@ -4,13 +4,18 @@ provider "aws" {
   profile                 = "terrauser"
 }
 
-resource "aws_s3_bucket" "bucket" {
+resource "aws_s3_bucket" "my_bucket" {
     bucket = "only-test-with-terraform01"
     acl    = "private"
 
     tags = {
         Name        = "My bucket test"
-        Environment = "Dev"
+        Environment = "Prod"
     }
-    
+}
+
+resource "aws_s3_bucket_object" "object" {
+  bucket = "${aws_s3_bucket.my_bucket.id}"
+  key    = "hello_world.txt"
+  source = "hello_world.txt"
 }
