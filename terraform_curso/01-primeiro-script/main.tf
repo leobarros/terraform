@@ -18,4 +18,13 @@ resource "aws_s3_bucket_object" "object" {
   bucket = "${aws_s3_bucket.my_bucket.id}"
   key    = "hello_world.txt"
   source = "hello_world.txt"
+  etag   = "${filemd5("hello_world.txt")}"
+}
+
+output "bucket" {
+  value = "${aws_s3_bucket.my_bucket.id}"
+}
+
+output "etag" {
+  value = "${aws_s3_bucket_object.object.etag}"
 }
