@@ -6,8 +6,10 @@ provider "aws" {
 
 ## EC2
 resource "aws_instance" "web" {
-  ami           = "${var.ubuntu_server}"
-  instance_type = "${var.instance_ec2_select}"
+  ami            = "${var.ubuntu_server}"
+  instance_type  = "${var.instance_ec2_select}"
+  #ipv6_addresses = "${var.ips}"
+  tags           = "${var.tags}"
 }
 
 ## EC2
