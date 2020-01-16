@@ -4,6 +4,16 @@ provider "aws" {
   profile                 = "terrauser"
 }
 
+# random id
+resource "random_id" "hex_id" {
+  byte_length = 8
+}
+
+resource "random_id" "dec_id" {
+  byte_length = 4
+}
+# random id
+
 ## EC2
 resource "aws_instance" "web" {
   ami            = "${var.ubuntu_server}"
@@ -14,29 +24,29 @@ resource "aws_instance" "web" {
 
 ## EC2
 
-## S3
-resource "aws_s3_bucket" "my_bucket" {
-    bucket = "only-test-with-terraform01"
-    acl    = "private"
+## Using module S3
+module "bucket" {
+  source = "./s3"
 
-    tags = {
-        Name        = "My bucket test"
-        Environment = "Prod"
-    }
+  #using random_id in name string to set a variable name
+  name          = "my-bucket-terraform-${random_id.hex_id.hex}"
+  versioning    = true
+
+  tags {
+    "Name"      = "My note bucket"
+  }
+
+  create_object = true
+  object_key    = "files/${random_id.hex_id.hex}.txt"
+  object_source = "./s3/file.txt"
+
+
 }
 
-resource "aws_s3_bucket_object" "object" {
-  bucket = "${aws_s3_bucket.my_bucket.id}"
-  key    = "hello_world.txt"
-  source = "hello_world.txt"
-  etag   = "${filemd5("hello_world.txt")}"
-}
+module "bucket-2" {
+  source = "./s3"
 
-output "bucket" {
-  value = "${aws_s3_bucket.my_bucket.id}"
+  #using random_id in name string to set a variable name
+  name   = "my-bucket-terraform-${random_id.dec_id.dec}"
 }
-
-output "etag" {
-  value = "${aws_s3_bucket_object.object.etag}"
-}
-## S3
+## Using module S3
