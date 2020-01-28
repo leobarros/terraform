@@ -1,13 +1,12 @@
 resource "aws_s3_bucket" "s3_example" {
-    bucket = "${var.name}"
-    acl    = "${var.acl}"
+  bucket = "${var.name}"
+  acl    = "${var.acl}"
 
-    versioning {
-        enabled = "${var.versioning}"
-    }
+  versioning {
+    enabled = "${var.versioning}"
+  }
 
-    tags = "${var.tags}"
-  
+  tags = "${var.tags}"
 }
 
 resource "aws_s3_bucket_object" "s3_example" {

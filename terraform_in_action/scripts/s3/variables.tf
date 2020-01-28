@@ -1,7 +1,5 @@
 variable "name" {
-
-    description = "You have to put a name in your resource"
-
+  description = "You have to put a name in your resource"
 }
 
 variable "acl" {
@@ -28,7 +26,3 @@ variable "object_source" {
 variable "create_object" {
   default = false
 }
-
-
-
-

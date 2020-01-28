@@ -5,4 +5,3 @@ output "name" {
 output "object" {
   value = "${aws_s3_bucket_object.s3_example.*.key}"
 }
-
