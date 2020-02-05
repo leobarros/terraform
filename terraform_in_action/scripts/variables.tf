@@ -3,6 +3,10 @@ variable "region" {
   description = "My favority region"
 }
 
+variable "profile" {
+  description = "Choose your profile. If you want validate the code. Please type -var profile=<your user>"
+}
+
 variable "ubuntu_server" {
   default     = "ami-04b9e92b5572fa0d1"
   description = "Ubuntu 18.04 LTS"
