@@ -1,29 +1,23 @@
 provider "aws" {
-  region                  = "us-east-1"
+  region                  = "${var.region}"
   shared_credentials_file = "~/.aws/credentials"
-  profile                 = "terrauser"
+  profile                 = "${var.profile}"
 }
 
-#save the remote state
+# remote-state
 terraform {
   backend "s3" {
-    bucket = "remote-states-terraform-dev"
-    key    = "ec2/ec2.tfstate"
-
-    #region = "us-east-1"
+    bucket                  = "remote-state-bucket-dev"
+    key                     = "ec2/ec2.tfstate"
+    region                  = "us-east-1"
+    shared_credentials_file = "~/.aws/credentials"
+    profile                 = "lsales"
   }
 }
 
 resource "aws_instance" "web" {
-  ami           = "${var.ubuntu_server}"
-  instance_type = "${var.instance_ec2_dev}"
+  ami           = "${var.ami}"
+  instance_type = "${var.instance_type}"
 
-  #ipv6_addresses = "${var.ips}"
   tags = "${var.tags}"
-}
-
-module "bucket" {
-  source     = "../s3"
-  name       = "${var.remote-state-name}-${var.env}"
-  versioning = true
 }
