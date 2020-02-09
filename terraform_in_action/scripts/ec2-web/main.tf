@@ -18,6 +18,7 @@ terraform {
 resource "aws_instance" "web" {
   ami           = "${var.ami}"
   instance_type = "${var.instance_type}"
+  user_data = "${file("install_apps.sh")}"
 
   tags = "${var.tags}"
 }
