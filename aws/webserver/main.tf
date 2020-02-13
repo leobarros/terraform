@@ -62,7 +62,7 @@ resource "aws_security_group" "allow_ssh" {
 resource "aws_security_group" "allow_http" {
   name = "allow_http"
 
-  #ssh access
+  #http access
   ingress {
     from_port   = 80
     to_port     = 80
@@ -89,5 +89,23 @@ resource "aws_cloudwatch_metric_alarm" "monitor_ec2" {
   statistic                 = "Average"
   threshold                 = "80"
   alarm_description         = "This metric monitors ec2 cpu utilization"
+  alarm_actions             = ["${aws_sns_topic.sns_webserver-topic.arn}"]
+  ok_actions                = ["${aws_sns_topic.sns_webserver-topic.arn}"]
   insufficient_data_actions = []
+}
+
+# aws sns (sending messages)
+resource "aws_sns_topic" "sns_webserver-topic" {
+  name         = "alert-webserver-topic"
+  display_name = "Alert - WebServer"
+
+  tags = {
+    Name = "Alert Webserver"
+  }
+}
+
+resource "aws_sns_topic_subscription" "sns_webserver-subs" {
+  topic_arn = "${aws_sns_topic.sns_webserver-topic.arn}"
+  protocol  = "sms"
+  endpoint  = "+5521123456789"
 }
