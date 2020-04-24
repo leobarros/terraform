@@ -9,11 +9,11 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket                  = "remote-state-bucket-dev"
+    bucket                  = "remote-state-bucket-dev-0101"
     key                     = "ec2/ec2.tfstate"
     region                  = "us-east-1"
     shared_credentials_file = "~/.aws/credentials"
-    profile                 = "lsales"
+    profile                 = "terraform"
   }
 }
 

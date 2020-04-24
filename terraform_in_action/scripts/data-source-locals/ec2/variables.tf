@@ -3,7 +3,7 @@ variable "region" {
 }
 
 variable "profile" {
-  default     = "lsales"
+  default     = "terraform"
   description = "Choose your profile"
 }
 

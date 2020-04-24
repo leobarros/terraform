@@ -1,4 +1,5 @@
 variable "name" {
+  default = "remote-state-bucket-dev-0101"
   description = "You have to put a name in your resource"
 }
 

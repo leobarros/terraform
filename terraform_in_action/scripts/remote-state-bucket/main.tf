@@ -6,7 +6,7 @@ provider "aws" {
 
 module "bucket" {
   source = "../s3"
-  name = "remote-state-bucket-dev"
+  name = "remote-state-bucket-dev-0101"
   versioning = true
   
 }
